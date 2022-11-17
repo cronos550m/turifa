@@ -1,8 +1,10 @@
 body {
     background: #f5f6f5;
     font-family: 'Oswald', sans-serif;
-    overflow: hidden;
-}
+    /* overflow: hidden; */
+    /* overflow-y: scroll; */
+    }
+
 
 .index {
     width: 100vw;
@@ -28,8 +30,13 @@ body {
     padding: 0;
 }
 
+.tarjeta-numero {
+    padding: 1rem;
+}
+
 @media (min-width: 992px) {
     .masthead h1 {
         font-size: 5.5rem;
     }
 }
+

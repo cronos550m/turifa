@@ -38,3 +38,28 @@ ALTER TABLE links
 ALTER TABLE links
     MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 2;
 
+CREATE TABLE numbers (
+    id INT(11) NOT NULL PRIMARY KEY , 
+    numero VARCHAR(10) NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+    user_id INT(11),
+    created_at TIMESTAMP NOT NULL DEFAULT current_timestamp,
+    CONSTRAINT fk_user_numbers FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+ALTER TABLE numbers
+    MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 2;
+
+
+
+CREATE TABLE clients (
+    id INT(11) NOT NULL PRIMARY KEY , 
+    numero VARCHAR(10) NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+    number_id INT(11),
+    created_at TIMESTAMP NOT NULL DEFAULT current_timestamp,
+    CONSTRAINT fk_client_numbers FOREIGN KEY (number_id) REFERENCES numbers(id)
+);
+
+ALTER TABLE clients
+    MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 2;

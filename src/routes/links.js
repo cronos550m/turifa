@@ -21,6 +21,8 @@ router.post('/add', async(req, res) => {
     res.redirect('/links');
 });
 
+
+
 router.get('/', isLoggedIn, async (req, res) => {
    const links = await pool.query('SELECT * FROM links WHERE user_id = ?', [req.user.id]);
    res.render('links/list', {links});
@@ -55,3 +57,11 @@ router.post('/edit/:id', isLoggedIn, async (req, res) => {
 
 
 module.exports = router;
+
+
+
+
+
+
+
+

@@ -4,7 +4,7 @@ const helpers = {};
 
 helpers.encryptPassword = async (password) => { //toma el pass que pone el usuario
     const salt = await bcrypt.genSalt(10);      //se crea un patron 
-    const hash = bcrypt.hash(password, salt)    //se sifra la contraseña
+    const hash = bcrypt.hash(password, salt)    //se cifra la contraseña
     return hash;
 };
 
