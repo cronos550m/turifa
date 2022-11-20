@@ -1,53 +1,53 @@
 <div class="container p-4">
-    <div class="row">
+    <div class="row ">
 
         {{#each numbers}}
-            <div class="col-md-3 tarjeta-numero">
-                <div class="card text-center">
-                    <div class="card-body">
-                        
-                            <h3 class="card-title text-uppercase">
-                                Numero: {{NumbersNumber}}
-                                
-                            </h3>
-                            
-                        <p class="m-2">
-                            
-                           Premio: {{NumbersReward}}
-                            
-                        </p>
-                        {{#if ClientsName}}
-                        <p>
-                            
-                            Cliente: {{ClientsName}}
-                        </p>
-                        {{else}}
-                        <p>
-                            Numero libre
-                        </p>
-                        {{/if}}
-                        <p>Numero creado hace: {{timeago NumbersCreatedAt}}</p>
-                        {{#if ClientsCreatedAt}}
-                            <p>Cliente creado hace: {{timeago ClientsCreatedAt}}</p>
-                        {{else}}
-                            <p>Cliente creado hace: Sin cliente</p>
-                        {{/if}}
-                        {{#if ClientsName}}
-                        <a href="/numbers/delete-client/{{id}}" class="btn btn-danger">Borrar cliente</a>
-                        <a href="/numbers/edit-clients/{{id}}" class="btn btn-secondary">Editar cliente</a>
-                        {{else}}
-                        <a href="/numbers/add-clients/{{id}}" class="btn btn-secondary">Agregar cliente</a>
-                        {{/if}}
-                    </div>
+        <div class="col-md-3 tarjeta-numero mx-auto">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h3 class="card-title text-uppercase">
+                        Numero: {{NumbersNumber}}
+                    </h3>
+                    {{#if RewardRewardId}}
+                    <p class="m-2">
+                        Premio: <a href="/rewards/rewards-details/{{RewardRewardId}}">{{RewardName}}</a>
+                    </p>
+                    {{else}}
+                    <p class="m-2">
+                        Premio: No tiene premio asignado
+                    </p>
+                    {{/if}}
+
+                    {{#if ClientsName}}
+                    <p>
+                        Cliente: {{ClientsName}}
+                    {{else}}
+                    <p>
+                        Numero libre
+                    </p>
+                    {{/if}}
+                    <p>Numero creado hace: {{timeago NumbersCreatedAt}}</p>
+                    {{#if ClientsCreatedAt}}
+                    <p>Cliente creado hace: {{timeago ClientsCreatedAt}}</p>
+                    {{else}}
+                    <p>Cliente creado hace: Sin cliente</p>
+                    {{/if}}
+                    {{#if ClientsName}}
+                    <a href="/numbers/delete-client/{{RewardNumberId}}" class="btn btn-danger">Borrar cliente</a>
+                    <a href="/numbers/edit-clients/{{RewardNumberId}}" class="btn btn-secondary">Editar cliente</a>
+                    {{else}}
+                    <a href="/numbers/add-clients/{{RewardNumberId}}" class="btn btn-secondary">Agregar cliente</a>
+                    {{/if}}
                 </div>
             </div>
-            {{else}}
-                <div class="col-md-4 mx-auto">
-                    <div class="card card-body text-center">
-                        <p>No hay numeros guardados..</p>
-                        <a href="/numbers/add-numbers">Crea uno!</a>
-                    </div>
-                </div>
+        </div>
+        {{else}}
+        <div class="col-md-4 mx-auto">
+            <div class="card card-body text-center">
+                <p>No hay numeros guardados..</p>
+                <a href="/numbers/add-numbers">Crea uno!</a>
+            </div>
+        </div>
         {{/each}}
     </div>
 </div>

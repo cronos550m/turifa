@@ -63,3 +63,19 @@ CREATE TABLE clients (
 
 ALTER TABLE clients
     MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 2;
+
+CREATE TABLE rewards (
+    id INT(11) NOT NULL PRIMARY KEY , 
+    RewardName VARCHAR(100) NOT NULL,
+    RewardDescription TEXT,
+    RewardNumberId INT(11),
+    RewardClientId INT(11),
+    RewardUserId INT(11),
+    RewardCreatedAt TIMESTAMP NOT NULL DEFAULT current_timestamp,
+    CONSTRAINT fk_rewards_numbers FOREIGN KEY (RewardNumberId) REFERENCES numbers(id),
+    CONSTRAINT fk_rewards_clients FOREIGN KEY (RewardClientId) REFERENCES clients(id)
+
+);
+
+ALTER TABLE rewards
+    MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 2;

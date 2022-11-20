@@ -55,6 +55,7 @@ app.use(require('./routes'));
 app.use(require('./routes/authentication'));
 app.use('/links', require('./routes/links'));
 app.use('/numbers', require('./routes/numbers'));
+app.use('/rewards', require('./routes/rewards'));
 
 // Public
 app.use(express.static(path.join(__dirname, 'public')));
