@@ -40,11 +40,12 @@ ALTER TABLE links
 
 CREATE TABLE numbers (
     id INT(11) NOT NULL PRIMARY KEY , 
-    numero VARCHAR(10) NOT NULL,
-    nombre VARCHAR(100) NOT NULL,
-    user_id INT(11),
-    created_at TIMESTAMP NOT NULL DEFAULT current_timestamp,
-    CONSTRAINT fk_user_numbers FOREIGN KEY (user_id) REFERENCES users(id)
+    NumbersNumber VARCHAR(10) NOT NULL,
+    NumbersReward VARCHAR(100) NOT NULL,
+    UserId INT(11),
+    NumbersGroup INT(11)
+    NumbersCreatedAt TIMESTAMP NOT NULL DEFAULT current_timestamp,
+    CONSTRAINT fk_user_numbers FOREIGN KEY (UserId) REFERENCES users(id)
 );
 
 ALTER TABLE numbers
@@ -65,13 +66,13 @@ ALTER TABLE clients
     MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 2;
 
 CREATE TABLE rewards (
-    id INT(11) NOT NULL PRIMARY KEY , 
+    RewardRewardId INT(11) NOT NULL PRIMARY KEY , 
     RewardName VARCHAR(100) NOT NULL,
     RewardDescription TEXT,
     RewardNumberId INT(11),
     RewardClientId INT(11),
     RewardUserId INT(11),
-    RewardCreatedAt TIMESTAMP NOT NULL DEFAULT current_timestamp,
+    RewardCreatedAt DATE, /*TIMESTAMP NOT NULL DEFAULT current_timestamp,*/
     CONSTRAINT fk_rewards_numbers FOREIGN KEY (RewardNumberId) REFERENCES numbers(id),
     CONSTRAINT fk_rewards_clients FOREIGN KEY (RewardClientId) REFERENCES clients(id)
 
@@ -79,3 +80,5 @@ CREATE TABLE rewards (
 
 ALTER TABLE rewards
     MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 2;
+
+ALTER TABLE rewards ADD `RewardDate` DATE AFTER `RewardUserId`;

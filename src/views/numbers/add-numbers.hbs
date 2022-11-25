@@ -6,13 +6,16 @@
             <div class="card-body">
                 <form action="/numbers/add-numbers" method="POST">
                     <div class="form-label">
-                        <input type="number" name="numero1" class="form-control" placeholder="Desde" autofocus>
+                        <input type="number" name="numero1" class="form-control" placeholder="Cuantos numeros son?" autofocus>
                     </div>
                     <div class="form-label">
                         <input type="text" name="RewardName" class="form-control" placeholder="Que se sortea?">
                     </div>
                     <div class="form-label">
-                        <input type="text" name="RewardDescription" class="form-control" placeholder="Detalle del sorteo">
+                         <textarea name="RewardDescription" rows="6" class="form-control" placeholder="Detalle del sorteo como por ejemplo fecha, por donde se sortea, premios y toda info relevante."></textarea>
+                    </div>
+                    <div class="form-label">
+                        <input type="date" name="RewardDate">
                     </div>
                     <div class="form-label d-grid gap-2">
                         <button class="btn btn-success">

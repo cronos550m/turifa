@@ -13,17 +13,24 @@ router.post('/add-numbers', async(req, res) => {
     // const { id } = req.params;
     // const numbers = await pool.query('SELECT * FROM numbers WHERE id = ?', [id]);
     // const clients = await pool.query('SELECT * FROM clients WHERE NumberId = ?', [id]);
-    const { numero1, RewardName, RewardDescription } = req.body;
+    const { numero1, RewardName, RewardDescription, RewardDate } = req.body;
+    const NumbersGroup1 = await pool.query('SELECT * FROM numbers WHERE UserId = ? ORDER BY id DESC', [req.user.id]);
+    
+    console.log(NumbersGroup1[0].NumbersGroup)
+    NumbersGroup1[0].NumbersGroup += 1;
     NumbersNumber = 0;
     for (let i = 0; i < numero1; i++) {
         NumbersNumber+= 1
-        console.log(NumbersNumber)
+        // console.log(NumbersNumber)
         const newNumber = {
             NumbersNumber,
-            UserId: req.user.id
+            UserId: req.user.id,       
+            NumbersGroup: NumbersGroup1[0].NumbersGroup
         };  
+
         await pool.query('INSERT INTO numbers set ?', [newNumber]);
         const numbers = await pool.query('SELECT * FROM numbers WHERE UserId = ? ORDER BY id DESC', [req.user.id]);
+        
         // const clients = await pool.query('SELECT * FROM clients ORDER BY id DESC');
         // console.log(numbers)
         const newReward = {
@@ -31,15 +38,19 @@ router.post('/add-numbers', async(req, res) => {
             RewardNumberId: numbers[0].id,
             // RewardClientId: clients[0].id,
             RewardDescription,
-            RewardUserId: req.user.id
+            RewardUserId: req.user.id,
+            RewardDate,
+            RewardCreatedAt: new Date(),
+            RewardNumbersGroup: NumbersGroup1[0].NumbersGroup
+            
         };
-        console.log(newReward)
+        // console.log(newReward)
         // console.log(newNumber)
         
         await pool.query('INSERT INTO rewards set ?', [newReward]);        
     }
-    req.flash('success', 'Link agregado correctamente');
-    res.redirect('/numbers');
+    req.flash('success', 'Numero agregado correctamente');
+    res.redirect('/numbers/listNumbers/'+ NumbersGroup1[0].NumbersGroup);
 });
 
 
@@ -54,13 +65,29 @@ router.get('/', isLoggedIn, async (req, res) => {
     const numbers = await pool.query('SELECT C.ClientsCreatedAt, C.ClientsName, C.ClientsNumbers, N.id, N.NumbersCreatedAt, N.NumbersNumber, N.NumbersReward, N.UserId, R.RewardName, R.RewardDescription, R.RewardNumberId, R.RewardClientId, R.RewardRewardId FROM numbers AS N LEFT JOIN clients AS C ON N.id = C.NumberId LEFT JOIN rewards AS R ON N.id = R.RewardNumberId WHERE N.UserId = ?', [req.user.id]);
     // const numbers = await pool.query('SELECT N.id, N.NumbersCreatedAt, N.NumbersNumber, N.NumbersReward, N.UserId, R.RewardName, R.RewardDescription, R.RewardNumberId, R.RewardClientId FROM numbers AS N LEFT JOIN rewards AS R ON N.id = R.RewardNumberId WHERE N.UserId = ?', [req.user.id]);
     // console.log(numbers[0].id)
-    console.log(numbers)
+    // console.log(numbers)
     const clients = await pool.query('SELECT * FROM clients WHERE NumberId = ?', [numbers[0].id]);
     // const clients = await pool.query('SELECT * FROM clients');
     // console.log(clients)
     // const rewards = await pool.query('SELECT N.id, R.id AS RewardId, R.RewardName, R.RewardNumberId, R.RewardDescription, R.RewardCreatedAt, R.RewardUserId FROM rewards AS R LEFT JOIN numbers AS N ON R.RewardNumberId = N.id WHERE R.RewardUserId = ?', [req.user.id]);
     // console.log(rewards.RewardId)
     res.render('numbers/numbers', {numbers, clients});
+ });
+
+
+ 
+ router.get('/listNumbers/:id', isLoggedIn, async (req, res) => {
+    const { id } = req.params;
+    const numbers = await pool.query('SELECT C.ClientsCreatedAt, C.ClientsName, C.ClientsNumbers, N.id, N.NumbersCreatedAt, N.NumbersNumber, N.NumbersReward, N.UserId, N.NumbersGroup, R.RewardName, R.RewardDescription, R.RewardNumberId, R.RewardClientId, R.RewardRewardId, R.RewardNumbersGroup FROM numbers AS N LEFT JOIN clients AS C ON N.id = C.NumberId LEFT JOIN rewards AS R ON N.id = R.RewardNumberId WHERE RewardNumbersGroup = ?', [id]);
+    // const numbers = await pool.query('SELECT N.id, N.NumbersCreatedAt, N.NumbersNumber, N.NumbersReward, N.UserId, R.RewardName, R.RewardDescription, R.RewardNumberId, R.RewardClientId FROM numbers AS N LEFT JOIN rewards AS R ON N.id = R.RewardNumberId WHERE N.UserId = ?', [req.user.id]);
+    // console.log(numbers[0].id)
+    console.log(numbers)
+    const clients = await pool.query('SELECT * FROM clients WHERE NumberId = ?', [numbers[0].id]);
+    // const clients = await pool.query('SELECT * FROM clients');
+    console.log(clients)
+    // const rewards = await pool.query('SELECT N.id, R.id AS RewardId, R.RewardName, R.RewardNumberId, R.RewardDescription, R.RewardCreatedAt, R.RewardUserId FROM rewards AS R LEFT JOIN numbers AS N ON R.RewardNumberId = N.id WHERE R.RewardUserId = ?', [req.user.id]);
+    // console.log(rewards.RewardId)
+    res.render('numbers/listNumbers', {numbers, clients});
  });
 
  

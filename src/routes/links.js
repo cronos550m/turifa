@@ -9,6 +9,17 @@ router.get('/add', (req, res) => {
 });
 
 router.post('/add', async(req, res) => {
+
+
+
+    // const {title, url, description} = req.body;
+    // const created_at = new Date();
+    // const newLink = {
+    //     title, url, description,created_at,
+    //     user_id: req.user.id
+    // };
+
+
     const { title, url, description } = req.body;
     const newLink = {
         title,

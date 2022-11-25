@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const pool = require('../database');
 
 const passport = require('passport');
 const { isLoggedIn, isNotLoggedIn } = require('../lib/auth'); //sirve para proteger las rutas viendo si esta logeado
@@ -29,8 +30,17 @@ router.post('/signin', isNotLoggedIn , (req, res, next) => {
 
 //agregando la logica "isLoggedIn" dentro de la ruta, el sistema verifica que el usuario este logeado para poder 
 // habilitar el ingreso al perfil, antes de continuar con el resto de la logica
-router.get('/profile', isLoggedIn, (req, res) => { 
-    res.render('profile')
+router.get('/profile', isLoggedIn, async (req, res) => { 
+
+    const numbers = await pool.query('SELECT * FROM numbers WHERE UserId = ? ORDER BY id DESC', [req.user.id]);
+    const rewards = await pool.query('SELECT * FROM rewards WHERE RewardUserId = ?  GROUP BY RewardNumbersGroup ORDER BY RewardRewardId ASC', [req.user.id]);
+    const user = await pool.query('SELECT * FROM users WHERE id = ?', [req.user.id]);
+    console.log(rewards)
+    fullname = user[0].fullname.toLowerCase().replace(/\b[a-z]/g, function(letter) { //se muestra el nombre con la primer letra en mayuscula
+        return letter.toUpperCase();
+    });
+    
+    res.render('profile', {fullname, numbers, rewards})
 });
 
 router.get("/logout", isLoggedIn, (req, res, next) => {
