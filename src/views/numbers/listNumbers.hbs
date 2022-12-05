@@ -20,7 +20,7 @@
 
                     {{#if ClientsName}}
                     <p>
-                        Cliente: {{ClientsName}}
+                        Comprador: {{ClientsName}}
                     {{else}}
                     <p>
                         Numero libre
@@ -28,15 +28,15 @@
                     {{/if}}
                     <p>Numero creado hace: {{timeago NumbersCreatedAt}}</p>
                     {{#if ClientsCreatedAt}}
-                    <p>Cliente creado hace: {{timeago ClientsCreatedAt}}</p>
+                    <p>Comprador creado hace: {{timeago ClientsCreatedAt}}</p>
                     {{else}}
-                    <p>Cliente creado hace: Sin cliente</p>
+                    <p>Comprador creado hace: Sin comprador</p>
                     {{/if}}
                     {{#if ClientsName}}
-                    <a href="/numbers/delete-client/{{RewardNumberId}}" class="btn btn-danger">Borrar cliente</a>
-                    <a href="/numbers/edit-clients/{{RewardNumberId}}" class="btn btn-secondary">Editar cliente</a>
+                    <a href="/numbers/delete-client/{{RewardNumberId}}" class="btn btn-danger">Borrar comprador</a>
+                    <a href="/numbers/edit-clients/{{RewardNumberId}}" class="btn btn-secondary">Editar comprador</a>
                     {{else}}
-                    <a href="/numbers/add-clients/{{RewardNumberId}}" class="btn btn-secondary">Agregar cliente</a>
+                    <a href="/numbers/add-clients/{{RewardNumberId}}" class="btn btn-secondary">Agregar comprador</a>
                     {{/if}}
                 </div>
             </div>

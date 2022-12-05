@@ -56,7 +56,9 @@ ALTER TABLE numbers
 CREATE TABLE clients (
     id INT(11) NOT NULL PRIMARY KEY , 
     numero VARCHAR(10) NOT NULL,
-    nombre VARCHAR(100) NOT NULL,
+    ClientsName VARCHAR(100) NOT NULL,
+    ClientsEmail VARCHAR(50) NULL,
+    ClientsPhone VARCHAR(50) NULL,
     number_id INT(11),
     created_at TIMESTAMP NOT NULL DEFAULT current_timestamp,
     CONSTRAINT fk_client_numbers FOREIGN KEY (number_id) REFERENCES numbers(id)
@@ -72,6 +74,8 @@ CREATE TABLE rewards (
     RewardNumberId INT(11),
     RewardClientId INT(11),
     RewardUserId INT(11),
+    RewardValue INT(11),
+    RewardCoin VARCHAR(15),
     RewardCreatedAt DATE, /*TIMESTAMP NOT NULL DEFAULT current_timestamp,*/
     CONSTRAINT fk_rewards_numbers FOREIGN KEY (RewardNumberId) REFERENCES numbers(id),
     CONSTRAINT fk_rewards_clients FOREIGN KEY (RewardClientId) REFERENCES clients(id)

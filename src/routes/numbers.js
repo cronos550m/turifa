@@ -13,7 +13,7 @@ router.post('/add-numbers', async(req, res) => {
     // const { id } = req.params;
     // const numbers = await pool.query('SELECT * FROM numbers WHERE id = ?', [id]);
     // const clients = await pool.query('SELECT * FROM clients WHERE NumberId = ?', [id]);
-    const { numero1, RewardName, RewardDescription, RewardDate } = req.body;
+    const { numero1, RewardName, RewardDescription, RewardDate, RewardValue } = req.body;
     const NumbersGroup1 = await pool.query('SELECT * FROM numbers WHERE UserId = ? ORDER BY id DESC', [req.user.id]);
     
     console.log(NumbersGroup1[0].NumbersGroup)
@@ -40,6 +40,7 @@ router.post('/add-numbers', async(req, res) => {
             RewardDescription,
             RewardUserId: req.user.id,
             RewardDate,
+            RewardValue,
             RewardCreatedAt: new Date(),
             RewardNumbersGroup: NumbersGroup1[0].NumbersGroup
             
@@ -101,7 +102,7 @@ router.get('/', isLoggedIn, async (req, res) => {
  
  router.get('/edit-clients/:id', isLoggedIn, async (req, res) => {
      const { id } = req.params;
-     const numbers = await pool.query('SELECT C.ClientsCreatedAt, C.ClientsName, C.ClientsNumbers, C.NumberId, N.id, N.NumbersCreatedAt, N.NumbersNumber, N.NumbersReward, N.UserId FROM numbers AS N LEFT JOIN clients AS C ON N.id = C.NumberId WHERE N.id = ?', [id]);
+     const numbers = await pool.query('SELECT C.ClientsCreatedAt, C.ClientsName, C.ClientsPhone, C.ClientsEmail, C.ClientsNumbers, C.NumberId, N.id, N.NumbersCreatedAt, N.NumbersNumber, N.NumbersReward, N.UserId FROM numbers AS N LEFT JOIN clients AS C ON N.id = C.NumberId WHERE N.id = ?', [id]);
     //  const numbers = await pool.query('SELECT * FROM numbers WHERE id = ?', [id]);
     //  const clients = await pool.query('SELECT * FROM clients WHERE number_id = ?', [id], '');
     //  console.log(numbers[0])
@@ -112,12 +113,14 @@ router.get('/', isLoggedIn, async (req, res) => {
  router.post('/edit-clients/:id', isLoggedIn, async (req, res) => {
      const { id } = req.params;
      console.log(id)
-     const { ClientsName } = req.body;
+     const { ClientsName, ClientsPhone, ClientsEmail } = req.body;
      const newName = {
-        ClientsName
+        ClientsName,
+        ClientsPhone,
+        ClientsEmail
      };
      await pool.query('UPDATE clients set ? WHERE NumberId = ?', [newName, id]);
-     req.flash('success', 'Cliente editado correctamente');
+     req.flash('success', 'Comprador editado correctamente');
      res.redirect('/numbers')
  });
 
@@ -132,23 +135,25 @@ router.get('/', isLoggedIn, async (req, res) => {
     const numbers = await pool.query('SELECT * FROM numbers WHERE id = ?', [id]);
         // console.log(numbers)
         // console.log(numbers[0].NumbersNumber)
-    const { ClientsName } = req.body;
+    const { ClientsName, ClientsPhone, ClientsEmail } = req.body;
         // console.log(ClientsName)
         const newClient = {
             ClientsNumbers: numbers[0].NumbersNumber,
             ClientsName,
+            ClientsPhone,
+            ClientsEmail,
             NumberId: numbers[0].id
     };
     await pool.query('INSERT INTO clients set ?', [newClient]);
     
-    req.flash('success', 'Link agregado correctamente');
+    req.flash('success', 'Comprador agregado correctamente');
     res.redirect('/numbers');
 });
 
 router.get('/delete-client/:id', isLoggedIn, async (req, res) => {
     const { id } = req.params;
     await pool.query('DELETE FROM clients WHERE NumberId = ?', [id]);
-    req.flash('success', 'Cliente eliminado correctamente');
+    req.flash('success', 'Comprador eliminado correctamente');
     res.redirect('/numbers');
 });
 
