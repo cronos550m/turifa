@@ -43,8 +43,7 @@ passport.use('local.signup', new LocalStrategy({
     
     if (!frase.test(fullname)){ //verifica si el nombre tiene por lo menos dos palabras
     return done(null, false, req.flash('message', 'Favor de ingresar nombre y apellido')) //si no tiene dos palabras da error
-    }
-    
+    }    
     
     const newUser = {
         username,
