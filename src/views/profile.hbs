@@ -5,26 +5,12 @@
                 <div class="card-body">
                 <h3>Bienvenido {{fullname}}</h3>
                 <h4>Tu usuario es: {{user.username}}</h4>
-                <a href="/numbers/add-numbers" class="btn btn-primary m-4">
+                <a href="/listNumbers/add-numbers" class="btn btn-primary m-4">
                 Crear sorteo
                 </a>
             </div>
             </div>
-{{#if rewards}}
-            <div class="card text-center">
-                <div class="card-body">
 
-                    <p>Listado de sorteos</p>
-                    {{#each rewards}}
-                    {{#if RewardNumbersGroup}}
-                    <a href="/numbers/listNumbers/{{RewardNumbersGroup}}" class="btn btn-primary m-4">
-                    {{RewardName}}
-                    </a>
-                    {{/if}}
-                    {{/each}}
-            </div>
-            </div>
-{{/if}}
         </div>
     </div>
 </div>

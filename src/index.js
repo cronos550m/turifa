@@ -28,6 +28,10 @@ app.engine('.hbs', exphbs.engine({
 }));
 app.set('view engine', '.hbs')
 
+
+// Public
+app.use(express.static(path.join(__dirname, 'public')));
+
 // Middlewares
 app.use(session({
     secret: 'paginadelinks',
@@ -56,12 +60,14 @@ app.use(require('./routes'));
 app.use(require('./routes/authentication'));
 app.use('/links', require('./routes/links'));
 app.use('/numbers', require('./routes/numbers'));
+app.use('/listNumbers', require('./routes/numbers'));
 app.use('/rewards', require('./routes/rewards'));
+app.use('/public', require('./routes/public'));
 
-// Public
-app.use(express.static(path.join(__dirname, 'public')));
+
 
 // Starting the server
 app.listen(app.get('port'),()=>{
     console.log('Server on port', app.get('port'));
 });
+

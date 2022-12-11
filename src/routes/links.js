@@ -4,11 +4,11 @@ const router = express.Router();
 const pool = require('../database');
 const { isLoggedIn } = require('../lib/auth')
 
-router.get('/add', (req, res) => {
+router.get('/add', isLoggedIn, (req, res) => {
     res.render('links/add');
 });
 
-router.post('/add', async(req, res) => {
+router.post('/add', isLoggedIn, async(req, res) => {
 
 
 

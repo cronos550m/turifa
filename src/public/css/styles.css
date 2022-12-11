@@ -34,11 +34,30 @@ body {
     padding: 1rem;
 }
 
+.button {
+    margin: 1rem;
+    font-size: 30px;
+}
+
+.button:hover {
+    transform: scale(1.3);
+}
+
+.divCenter {
+    display: flex;
+    justify-content: center;
+}
+
+
+
 @media (min-width: 992px) {
     .masthead h1 {
         font-size: 5.5rem;
     }
 }
+
+
+
 
 /*Validation*/
 
@@ -74,3 +93,5 @@ body {
 .form-label.error small {
     visibility: visible;
 } */
+
+

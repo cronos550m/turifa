@@ -35,14 +35,12 @@ router.post('/signin', isNotLoggedIn , (req, res, next) => {
 router.get('/profile', isLoggedIn, async (req, res) => { 
 
     const numbers = await pool.query('SELECT * FROM numbers WHERE UserId = ? ORDER BY id DESC', [req.user.id]);
-    const rewards = await pool.query('SELECT * FROM rewards WHERE RewardUserId = ?  GROUP BY RewardNumbersGroup ORDER BY RewardRewardId ASC', [req.user.id]);
     const user = await pool.query('SELECT * FROM users WHERE id = ?', [req.user.id]);
-    console.log(rewards)
     fullname = user[0].fullname.toLowerCase().replace(/\b[a-z]/g, function(letter) { //se muestra el nombre con la primer letra en mayuscula
         return letter.toUpperCase();
     });
     
-    res.render('profile', {fullname, numbers, rewards})
+    res.render('profile', {fullname, numbers})
 });
 
 router.get("/logout", isLoggedIn, (req, res, next) => {

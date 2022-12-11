@@ -1,12 +1,13 @@
 <div class="container p-4">
-        <div class="divCenter">
+    <div class="divCenter">
         <span class="button whatsapp"><i class="fa fa-whatsapp"></i></span>
         <span class="button twitter"><i class="fa fa-twitter"></i></span>
         <span class="button telegram"><i class="fa fa-telegram"></i></span>
     </div>
     <div class="row ">
-
-       {{#each numbers}}
+     
+            
+        {{#each numbers}}
         <div class="col-md-3 tarjeta-numero mx-auto">
             <div class="card text-center">
                 <div class="card-body">
@@ -38,10 +39,10 @@
                     <p>Comprador creado hace: Sin comprador</p>
                     {{/if}}
                     {{#if ClientsName}}
-                    <a href="/listNumbers/delete-client/{{RewardNumberId}}" class="btn btn-danger">Borrar comprador</a>
-                    <a href="/listNumbers/edit-clients/{{RewardNumberId}}" class="btn btn-secondary">Editar comprador</a>
+                    <a href="/numbers/delete-client/{{RewardNumberId}}" class="btn btn-danger">Borrar comprador</a>
+                    <a href="/numbers/edit-clients/{{RewardNumberId}}" class="btn btn-secondary">Editar comprador</a>
                     {{else}}
-                    <a href="/listNumbers/add-clients/{{RewardNumberId}}" class="btn btn-secondary">Agregar comprador</a>
+                    <a href="/numbers/add-clients/{{RewardNumberId}}" class="btn btn-secondary">Agregar comprador</a>
                     {{/if}}
                 </div>
             </div>
@@ -50,9 +51,10 @@
         <div class="col-md-4 mx-auto">
             <div class="card card-body text-center">
                 <p>No hay numeros guardados..</p>
-                <a href="/add-numbers">Crea uno!</a>
+                <a href="/numbers/add-numbers">Crea uno!</a>
             </div>
         </div>
         {{/each}}
+
     </div>
 </div>

@@ -7,16 +7,23 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ms-auto">
       {{#if user}}
-            <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Numeros
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/numbers/">Lista de numeros</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="/numbers/add-numbers">Agregar numeros</a></li>
-          </ul>
+        <li class="nave-item">
+          <a class="nav-link" href="/listNumbers/listNumbers/{{user.id}}">Listado de sorteos</a>
+        </li>        
+        <li class="nave-item">
+          <a class="nav-link" href="/listNumbers/add-numbers">Agregar sorteo</a>
         </li>
+          {{!-- <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Numeros</a>
+          
+          
+          <ul class="dropdown-menu">
+            <li></li>
+            <li><hr class="dropdown-divider"></li>
+            <li></li>
+          </ul>
+        </li> --}}
+
         <li class="nave-item">
           <a href="/profile" class="nav-link">Perfil</a>
         </li>
