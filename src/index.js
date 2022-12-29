@@ -8,6 +8,7 @@ const MySQLStore = require('express-mysql-session');
 const passport = require('passport');
 
 
+
 const { database } = require('./keys');
 
 // Initilizations
@@ -46,6 +47,7 @@ app.use(express.json());
 app.use(passport.initialize());
 app.use(passport.session());
 
+
 // Global variables
    //Se hace disponible el mensaje success en todas las vistas
 app.use((req, res, next) => {
@@ -70,4 +72,6 @@ app.use('/public', require('./routes/public'));
 app.listen(app.get('port'),()=>{
     console.log('Server on port', app.get('port'));
 });
+
+
 

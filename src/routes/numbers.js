@@ -3,34 +3,76 @@ const router = express.Router();
 
 const pool = require('../database');
 const { isLoggedIn , isNotLoggedIn } = require('../lib/auth')
-
+const multerMiddleware = require('../middleware/multerMiddleware') // Mid para trabajar con envios de archivos
 
 router.get('/add-numbers', (req, res) => {
     res.render('numbers/add-numbers');
 });
 
-router.post('/add-numbers', async(req, res) => {
+router.post('/add-numbers', multerMiddleware.single('ProductPicture'), async(req, res) => {
     // const { id } = req.params;
     // const numbers = await pool.query('SELECT * FROM numbers WHERE id = ?', [id]);
     // const clients = await pool.query('SELECT * FROM clients WHERE NumberId = ?', [id]);
     const { numero1, RewardName, RewardDescription, RewardDate, RewardValue } = req.body;
-    const NumbersGroup1 = await pool.query('SELECT * FROM numbers WHERE UserId = ? ORDER BY id DESC', [req.user.id]);
+    const file = req.file;
+    let NumbersGroup1 = await pool.query('SELECT * FROM numbers WHERE UserId = ? ORDER BY id DESC', [req.user.id]); //chequea si hay numeros ingresados para el usuario
+    console.log(NumbersGroup1)
+    if (NumbersGroup1.length > 0 ) {
+
+        
+        let NumbersGroup1 = await pool.query('SELECT * FROM numbers ORDER BY id DESC'); //chequea si hay 
+        // console.log(NumbersGroup1[0].NumbersGroup)
+NumbersGroup1[0].NumbersGroup += 1;
+NumbersNumber = 0;
+for (let i = 0; i < numero1; i++) { //itera para agregar la cantidad de numeros del sorteo
+    NumbersNumber+= 1
+    // console.log(NumbersNumber)
+    const newNumber = {
+        NumbersNumber,
+        UserId: req.user.id,       
+        NumbersGroup: NumbersGroup1[0].NumbersGroup
+    };  
+
+    await pool.query('INSERT INTO numbers set ?', [newNumber]);
+    const numbers = await pool.query('SELECT * FROM numbers WHERE UserId = ? ORDER BY id DESC', [req.user.id]);
     
-    // console.log(NumbersGroup1[0].NumbersGroup)
-    NumbersGroup1[0].NumbersGroup += 1;
-    NumbersNumber = 0;
-    for (let i = 0; i < numero1; i++) {
+    // const clients = await pool.query('SELECT * FROM clients ORDER BY id DESC');
+    // console.log(numbers)
+    const newReward = {
+        RewardName,
+        RewardNumberId: numbers[0].id,
+        // RewardClientId: clients[0].id,
+        RewardDescription,
+        RewardUserId: req.user.id,
+        RewardDate,
+        RewardValue,
+        RewardCreatedAt: new Date(),
+        RewardImage: `/uploads/${file.filename}`,
+        RewardNumbersGroup: NumbersGroup1[0].NumbersGroup
+        
+    };
+    // console.log(newReward)
+    // console.log(newNumber)
+    
+    await pool.query('INSERT INTO rewards set ?', [newReward]);        
+}
+    
+    } else {
+
+
+        NumbersNumber = 0;
+        for (let i = 0; i < numero1; i++) {
         NumbersNumber+= 1
         // console.log(NumbersNumber)
         const newNumber = {
             NumbersNumber,
             UserId: req.user.id,       
-            NumbersGroup: NumbersGroup1[0].NumbersGroup
+            NumbersGroup: 1
         };  
-
+    
         await pool.query('INSERT INTO numbers set ?', [newNumber]);
         const numbers = await pool.query('SELECT * FROM numbers WHERE UserId = ? ORDER BY id DESC', [req.user.id]);
-        
+    
         // const clients = await pool.query('SELECT * FROM clients ORDER BY id DESC');
         // console.log(numbers)
         const newReward = {
@@ -42,7 +84,8 @@ router.post('/add-numbers', async(req, res) => {
             RewardDate,
             RewardValue,
             RewardCreatedAt: new Date(),
-            RewardNumbersGroup: NumbersGroup1[0].NumbersGroup
+            RewardImage: `/uploads/${file.filename}`,
+            RewardNumbersGroup: 1
             
         };
         // console.log(newReward)
@@ -50,6 +93,11 @@ router.post('/add-numbers', async(req, res) => {
         
         await pool.query('INSERT INTO rewards set ?', [newReward]);        
     }
+
+
+
+    }
+    
     req.flash('success', 'Numero agregado correctamente');
     res.redirect('/listNumbers/listNumbers/'+ req.user.id);
 });
@@ -60,7 +108,8 @@ router.get('/listNumbers/:id', isLoggedIn, async (req, res) => {
     const { id } = req.params;
     const rewards = await pool.query('SELECT * FROM rewards WHERE RewardUserId = ?  GROUP BY RewardNumbersGroup ORDER BY RewardRewardId ASC', [req.user.id]);
     const numbers = await pool.query('SELECT C.ClientsCreatedAt, C.ClientsName, C.ClientsNumbers, N.id, N.NumbersCreatedAt, N.NumbersNumber, N.NumbersReward, N.UserId, N.NumbersGroup, R.RewardName, R.RewardDescription, R.RewardNumberId, R.RewardClientId, R.RewardRewardId, R.RewardNumbersGroup FROM numbers AS N LEFT JOIN clients AS C ON N.id = C.NumberId LEFT JOIN rewards AS R ON N.id = R.RewardNumberId WHERE RewardUserId = ?', [id]);
-    // console.log(numbers)
+    console.log(rewards)
+    console.log(numbers)
     const clients = await pool.query('SELECT * FROM clients WHERE NumberId = ?', [numbers[0].id]);
     res.render('numbers/listNumbers', { numbers, clients, rewards });
  });

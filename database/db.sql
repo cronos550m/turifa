@@ -68,7 +68,7 @@ ALTER TABLE clients
     MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 2;
 
 CREATE TABLE rewards (
-    RewardRewardId INT(11) NOT NULL PRIMARY KEY , 
+    RewardRewardId INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, AUTO_INCREMENT	= 2, 
     RewardName VARCHAR(100) NOT NULL,
     RewardDescription TEXT,
     RewardNumberId INT(11),

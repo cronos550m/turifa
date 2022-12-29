@@ -4,7 +4,7 @@
     <div class="col-md-4 mx-auto">
         <div class="card">
             <div class="card-body">
-                <form action="/numbers/add-numbers" method="POST">
+                <form action="/numbers/add-numbers" method="POST" enctype="multipart/form-data">
                     <div class="form-label">
                         <input type="number" name="numero1" class="form-control" placeholder="Cuantos numeros son?" autofocus>
                     </div>
@@ -15,10 +15,13 @@
                         <input type="text" name="RewardValue" class="form-control" placeholder="Ingrese el valor, solo en numeros">
                     </div>
                     <div class="form-label">
-                         <textarea name="RewardDescription" rows="6" class="form-control" placeholder="Detalle del sorteo como por ejemplo fecha, por donde se sortea, premios y toda info relevante."></textarea>
+                         <textarea name="RewardDescription" rows="6" class="form-control" placeholder="Detalle del sorteo como por ejemplo por donde se sortea, premios y toda info relevante."></textarea>
                     </div>
                     <div class="form-label">
-                        <input type="date" name="RewardDate">
+                        <input type="date" name="RewardDate"><a> Fecha del sorteo </a>
+                    </div>
+                    <div class="form-label">
+                        <input type="file" name="ProductPicture" id="">
                     </div>
                     <div class="form-label d-grid gap-2">
                         <button class="btn btn-success">
