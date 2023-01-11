@@ -17,9 +17,10 @@
                     </p>
                     <p>Premio creado hace: {{timeago rewardList.RewardCreatedAt}}</p>
                     <div class="container-reward-image">
-                        <img src="{{rewardList.RewardImage}}">
-                        <p>asd
-                        
+                        {{#each image3}}
+                        <div><img src="/uploads/{{../userId}}/{{this}}"></div>
+                        {{/each}}
+                        <div id="output"></div>
                         </p>
                     </div>
                     <a onclick="backButton()" class="btn btn-secondary">Volver</a>

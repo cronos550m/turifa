@@ -3,20 +3,22 @@ const router = express.Router();
 
 const pool = require('../database');
 const { isLoggedIn , isNotLoggedIn } = require('../lib/auth')
-const multerMiddleware = require('../middleware/multerMiddleware') // Mid para trabajar con envios de archivos
+const uploadFile = require('../middleware/multerMiddleware') // Mid para trabajar con envios de archivos
 
 router.get('/add-numbers', (req, res) => {
     res.render('numbers/add-numbers');
 });
 
-router.post('/add-numbers', multerMiddleware.single('ProductPicture'), async(req, res) => {
+router.post('/add-numbers', uploadFile('ProductPicture'), async(req, res) => {
     // const { id } = req.params;
     // const numbers = await pool.query('SELECT * FROM numbers WHERE id = ?', [id]);
     // const clients = await pool.query('SELECT * FROM clients WHERE NumberId = ?', [id]);
     const { numero1, RewardName, RewardDescription, RewardDate, RewardValue } = req.body;
-    const file = req.file;
+    let images = req.files;
+    // console.log(images);
+
     let NumbersGroup1 = await pool.query('SELECT * FROM numbers WHERE UserId = ? ORDER BY id DESC', [req.user.id]); //chequea si hay numeros ingresados para el usuario
-    console.log(NumbersGroup1)
+    // console.log(NumbersGroup1)
     if (NumbersGroup1.length > 0 ) {
 
         
@@ -47,7 +49,7 @@ for (let i = 0; i < numero1; i++) { //itera para agregar la cantidad de numeros 
         RewardDate,
         RewardValue,
         RewardCreatedAt: new Date(),
-        RewardImage: `/uploads/${file.filename}`,
+        RewardImage: JSON.stringify(images),
         RewardNumbersGroup: NumbersGroup1[0].NumbersGroup
         
     };
@@ -84,7 +86,7 @@ for (let i = 0; i < numero1; i++) { //itera para agregar la cantidad de numeros 
             RewardDate,
             RewardValue,
             RewardCreatedAt: new Date(),
-            RewardImage: `/uploads/${file.filename}`,
+            RewardImage: JSON.stringify(images),
             RewardNumbersGroup: 1
             
         };
@@ -117,10 +119,10 @@ router.get('/listNumbers/:id', isLoggedIn, async (req, res) => {
 
  
  router.get('/numbers/:id', isLoggedIn, async (req, res) => {
-
+        
         const { id } = req.params;
 
-        const numbers = await pool.query('SELECT C.ClientsCreatedAt, C.ClientsName, C.ClientsNumbers, N.id, N.NumbersCreatedAt, N.NumbersNumber, N.NumbersReward, N.UserId, N.NumbersGroup, R.RewardName, R.RewardDescription, R.RewardNumberId, R.RewardClientId, R.RewardRewardId, R.RewardNumbersGroup FROM numbers AS N LEFT JOIN clients AS C ON N.id = C.NumberId LEFT JOIN rewards AS R ON N.id = R.RewardNumberId WHERE RewardNumbersGroup = ?', [id]);
+        const numbers = await pool.query('SELECT C.ClientsCreatedAt, C.ClientsName, C.ClientsNumbers, N.id, N.NumbersCreatedAt, N.NumbersNumber, N.NumbersReward, N.UserId, N.NumbersGroup, R.RewardName, R.RewardDescription, R.RewardNumberId, R.RewardClientId, R.RewardRewardId, R.RewardNumbersGroup FROM numbers AS N LEFT JOIN clients AS C ON N.id = C.NumberId LEFT JOIN rewards AS R ON N.id = R.RewardNumberId WHERE RewardNumbersGroup = ? AND UserId = ?', [id, req.user.id]);
         const clients = await pool.query('SELECT * FROM clients WHERE NumberId = ?', [numbers[0].id]);
 
         res.render('numbers/numbers', { numbers, clients });
