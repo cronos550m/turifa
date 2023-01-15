@@ -20,8 +20,11 @@
     <link rel="stylesheet" href="/css/styles.css" >
     {{!-- Scripts --}}
     <link rel="shortcut icon" href="/img/favicon.png">
-
-     
+    {{!-- OWL carousel --}}
+    <link rel="stylesheet" href="/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/css/owl.theme.default.min.css">
+    {{!-- Animate CSS --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     </head>
 
 <body>
@@ -48,6 +51,38 @@
     </script>
 
 
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<script src="/js//owl.carousel.min.js"></script>
+    <script>
+    $(document).ready(function(){
+	var owl = $('.owl-carousel');
+    $('.custom1').owlCarousel({
+    animateOut: 'slideOutDown',
+    animateIn: 'flipInX',
+    items:1,
+    margin:30,
+    stagePadding:30,
+    smartSpeed:450
+    });
+	owl.owlCarousel({
+		loop:true,
+		margin:10,
+		navRewind:false,
+		responsive:{
+			0:{
+				items:1
+			},
+			600:{
+				items:3
+			},
+			1000:{
+				items:5
+			}
+		}
+	    })
+    })
+
+    </script>
 
 <script src="https://use.fontawesome.com/8e7c028ecd.js"></script>
 

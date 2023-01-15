@@ -25,6 +25,8 @@
     "mysql": "^2.18.1",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
+    "sharp": "^0.31.3",
+    "sharp-multer": "^0.2.5",
     "timeago.js": "^4.0.2",
     "uuidv4": "^6.2.13"
   },

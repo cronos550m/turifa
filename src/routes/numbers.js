@@ -1,19 +1,22 @@
 const express = require('express');
 const router = express.Router();
+const path = require('path');
+
 
 const pool = require('../database');
 const { isLoggedIn , isNotLoggedIn } = require('../lib/auth')
 const uploadFile = require('../middleware/multerMiddleware') // Mid para trabajar con envios de archivos
 
-router.get('/add-numbers', (req, res) => {
+router.get('/add-numbers', isLoggedIn, (req, res) => {
     res.render('numbers/add-numbers');
 });
 
-router.post('/add-numbers', uploadFile('ProductPicture'), async(req, res) => {
+router.post('/add-numbers', isLoggedIn, uploadFile('ProductPicture'), async(req, res) => {
     // const { id } = req.params;
     // const numbers = await pool.query('SELECT * FROM numbers WHERE id = ?', [id]);
     // const clients = await pool.query('SELECT * FROM clients WHERE NumberId = ?', [id]);
     const { numero1, RewardName, RewardDescription, RewardDate, RewardValue } = req.body;
+
     let images = req.files;
     // console.log(images);
 

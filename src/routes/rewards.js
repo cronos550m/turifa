@@ -27,7 +27,7 @@ image1.map(function(obj){
 
     const splitString = obj.RewardImage.split("\"");
     
-        for (let i=25; i < splitString.length; i += 32) {
+        for (let i=23; i < splitString.length; i += 30) {
             image3.push(splitString[i])
            
 

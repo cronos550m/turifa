@@ -1,7 +1,6 @@
 
 const multer = require('multer');
 const {v4: uuidv4 } = require('uuid')
-const fs = require('fs');
 const path = require('path');
 
 function uploadFile() {
@@ -24,12 +23,14 @@ function uploadFile() {
     },
   });
   
-  const upload = multer({ storage: storage }).fields([
-    { name: "RewardImage1", maxCount: 1 },
-    { name: "RewardImage2", maxCount: 1 },
-    { name: "RewardImage3", maxCount: 1 },
-    { name: "RewardImage4", maxCount: 1 }
-  ]);
+  const upload = multer({ 
+    storage, 
+    limits: {fileSize: 200000, files: 4},
+    fileFilter: function (req, file, cb){
+      let type = file.mimetype.startsWith('image/');
+      type?cb(null, true):cb(new Error('No es un archivo de tipo imagen'));
+    }
+  }).array('RewardImage1');
 
   return upload;
 }
