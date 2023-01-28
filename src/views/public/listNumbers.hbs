@@ -23,14 +23,14 @@
                         Comprador: {{ClientsName}}
                     {{else}}
                     <p>
-                        Numero libre
+                        Comprador: Numero libre
                     </p>
                     {{/if}}
                     <p>Numero creado hace: {{timeago NumbersCreatedAt}}</p>
                     {{#if ClientsCreatedAt}}
                     <p>Comprador creado hace: {{timeago ClientsCreatedAt}}</p>
                     {{else}}
-                    <p>Comprador creado hace: Sin comprador</p>
+                    <p>Comprador creado hace: Numero libre</p>
                     {{/if}}
                     {{#if ClientsName}}
                     <a href="/numbers/delete-client/{{RewardNumberId}}" class="btn btn-danger">Borrar comprador</a>
