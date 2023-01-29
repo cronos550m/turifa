@@ -1,6 +1,6 @@
 
 const multer = require('multer');
-const {v4: uuidv4 } = require('uuid')
+const { uuid } = require('uuidv4');
 const path = require('path');
 const fs = require('fs');
 
@@ -20,7 +20,7 @@ function uploadFile() {
       cb(null, path.join(__dirname, `../public/uploads/`+ req.user.id))
     },
     filename: function(req, file, cb) {
-      cb(null, uuidv4() + "_" + Date.now() + "_" + file.originalname);
+      cb(null, uuid() + "_" + Date.now() + "_" + file.originalname);
     },
   });
   
