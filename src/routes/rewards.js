@@ -14,16 +14,14 @@ router.get('/rewards-details/:id', isLoggedIn, async (req, res) => {
     // const images2 = await pool.query(`SELECT JSON_EXTRACT(RewardImage, '$**.filename') AS filename FROM rewards WHERE RewardRewardId = ?`, [id])
 
 let image1 = images.map(function(obj){
-    console.log(obj.RewardImage)
-   
-    return (obj)
-    
- });
+    // console.log(obj.RewardImage)
+       return (obj)
+     });
 
  let image3 = [];
 
 image1.map(function(obj){
-    console.log(obj)
+    // console.log(obj)
 
     const splitString = obj.RewardImage.split("\"");
     
@@ -31,7 +29,7 @@ image1.map(function(obj){
             image3.push(splitString[i])
            
 
-        console.log(splitString[i]);
+        // console.log(splitString[i]);
             
       }
 

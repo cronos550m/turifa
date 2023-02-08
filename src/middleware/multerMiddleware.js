@@ -4,6 +4,7 @@ const { uuid } = require('uuidv4');
 const path = require('path');
 const fs = require('fs');
 
+
 function uploadFile() {
   const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -15,7 +16,7 @@ function uploadFile() {
       } catch (err) {
         console.error(err);
       }
-      console.log("finaliza el directorio")
+      console.log("directorio creado")
       
       cb(null, path.join(__dirname, `../public/uploads/`+ req.user.id))
     },
@@ -25,13 +26,17 @@ function uploadFile() {
   });
   
   const upload = multer({ 
-    storage, 
+    storage : storage, 
     limits: {fileSize: 200000, files: 4},
     fileFilter: function (req, file, cb){
       let type = file.mimetype.startsWith('image/');
       type?cb(null, true):cb(new Error('No es un archivo de tipo imagen'));
     }
   }).array('RewardImage1');
+
+  
+
+
 
   return upload;
 }

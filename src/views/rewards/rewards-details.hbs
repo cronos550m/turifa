@@ -18,7 +18,7 @@
                     <p>Premio creado: {{timeago rewardList.RewardCreatedAt}}</p>
                     <div class="container-reward-image owl-carousel custom1 owl-theme">
                         {{#each image3}}
-                        <div><img src="/uploads/{{../userId}}/{{this}}"></div>
+                        <div><img src="{{this}}"></div>
                         {{/each}}
                     </div>
                     <a onclick="backButton()" class="btn btn-secondary">Volver</a>
