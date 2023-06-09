@@ -1,19 +1,22 @@
 #A little of History
 
-######My dear little brother had an accident of transit where lost enterly his right leg, and at that moment we start to do raffles to help him with his needs, so this proyect born from the needed of have a control of the numbers that we sell, because when you sell a lot of numbers (1000 for example) is very problematic know the vacant numbers and share with the people that whant to help.
+######My dear little brother had a traffic accident where he completely lost his right leg. Since then, we started organizing raffles to help him with his needs. This project was born out of the necessity to keep track of the numbers we sell. Selling a large number of tickets (for example, 1000) becomes problematic when it comes to managing the available numbers and coordinating with the people who want to help.
 
 ----
 
 ##Features
 
-With this system you will be abble to have a control of the numbers of your raffles, adding a description and pictures of the reward, the value of the number and the ending date. Assign the client of each number, with his personal information (name, phone and email).
+With this system, you will be able to maintain control over the numbers for your raffles. It allows you to add a description and pictures of the prize, specify the value of each number, and set the ending date. Additionally, you can assign clients to each number along with their personal information such as name, phone number, and email address.
 
 ####Possible future features
 
-- Share numbers availables with the clients.
-- Automatic contact with the client at the moment of a number is assigned showing his selected number and the reward that the client could win.
-- Connection with an API of national lottery.
-- Automatic contact with the winner.
+- Share available numbers with clients: The system allows you to share the list of available numbers with your clients. They can view the available numbers and choose the one they prefer.
+
+- Automatic contact with the client upon number assignment: When a number is assigned to a client, the system automatically contacts them, providing information about the selected number and the potential reward they could win. This ensures seamless communication and keeps the clients informed.
+
+- Connection with an API of national lottery: The system can be integrated with an API of the national lottery. This allows you to retrieve up-to-date information about lottery results, winning numbers, and other relevant data.
+
+- Automatic contact with the winner: Once the lottery results are announced or a winner is determined, the system can automatically contact the winner. This ensures quick and efficient communication, notifying them of their win and providing further instructions on claiming their prize.
 
 ----
      
